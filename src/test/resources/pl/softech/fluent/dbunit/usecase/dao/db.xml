@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <author ID="1" NAME="Orson" LASTNAME="Card"/>
+  <author ID="2" NAME="Terry" LASTNAME="Pratchett"/>
+  <author ID="3" NAME="Magdalena" LASTNAME="Kozak"/>
+  <author ID="4" NAME="Miroslav" LASTNAME="&#381;amboch"/>
+  <author ID="5" NAME="Terry" LASTNAME="Goodkind"/>
+  <book ID="1" TITLE="Ender&apos;s Game" AUTHOR_ID="5"/>
+</dataset>
