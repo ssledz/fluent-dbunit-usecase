@@ -28,7 +28,7 @@ import pl.softech.fluent.dbunit.usecase.model.*;
  *
  * @author Sławomir Śledź <slawomir.sledz@sof-tech.pl>
  */
-public class BookstoreDao {
+public class BookstoreDao implements IBookstoreDao {
 
     private final DataSource ds;
 
@@ -36,6 +36,7 @@ public class BookstoreDao {
         this.ds = ds;
     }
 
+    @Override
     public List<Author> fetchAuthorsByName(String name) throws SQLException {
 
         Connection conn = null;
@@ -61,6 +62,7 @@ public class BookstoreDao {
 
     }
 
+    @Override
     public void save(Author author) throws SQLException {
 
         Connection conn = null;
@@ -69,26 +71,26 @@ public class BookstoreDao {
             Object[] args = {
                 author.getName(), author.getLastname(), author.getId()
             };
-            
+
             PreparedStatement pst = conn.prepareStatement("UPDATE author set name = ?, lastname = ? where id = ?");
             int index = 1;
-            for(Object arg : args) {
+            for (Object arg : args) {
                 pst.setObject(index++, arg);
             }
 
-            if(pst.executeUpdate() == 0) {
-                
+            if (pst.executeUpdate() == 0) {
+
                 pst = conn.prepareStatement("INSERT INTO author (name, lastname) VALUES (?,?)");
-                for(index = 0; index < args.length - 1; index++) {
+                for (index = 0; index < args.length - 1; index++) {
                     pst.setObject(index + 1, args[index]);
                 }
                 pst.executeUpdate();
                 ResultSet rs = pst.getGeneratedKeys();
-                if(rs.next()) {
+                if (rs.next()) {
                     author.setId(rs.getInt(1));
                 }
             }
-            
+
 
         } finally {
             if (conn != null) {
@@ -97,6 +99,7 @@ public class BookstoreDao {
         }
     }
 
+    @Override
     public List<Book> fetchBooksByAuthor(Author author) throws SQLException {
 
         Connection conn = null;

@@ -53,9 +53,13 @@ public class ExportUseCases {
 
     public static void main(String[] args) throws Exception {
         initDb();
+        
+        //fetches table of author and book
         DBExporter.MyDataSet dataSet = DBExporter.forDB(ds).table("author", "book");
         File dir = new File(ExportUseCases.class.getClassLoader().getResource(".").getFile()).getParentFile();
+        //saves tables in the db-csv directory
         dataSet.write2Csv(new File(dir, "db-csv").getAbsolutePath());
+        //saves tables in the db.xml file
         dataSet.write2Xml(new File(dir, "db.xml").getAbsolutePath());
     }
 }
